@@ -18,33 +18,33 @@ class MoviewTBVViewModel {
     var numberOfRowsSearch: Int { filterArraySearch.count }
     private var page = 1
     private var week: Bool = true
-
+    
     var onDataUpdated: () -> Void = {}
-
+    
     var title: String {
         week ? "Day tranding" : "Week tranding"
     }
-
+    
     var buttonTitle: String {
         week ? "Week tranding" : "Day tranding"
     }
-
+    
     func toggleTrandingMode() {
         week.toggle()
         refresh()
     }
-
+    
     func refresh() {
         page = 1
         getNextPage()
     }
-
+    
     func getNextPage() {
         getData(week: week) { [weak self] in
             self?.onDataUpdated()
         }
     }
-
+    
     private func getData(week: Bool, completio: @escaping() -> Void) {
         if page == 1 {
             data.removeAll()
@@ -61,7 +61,42 @@ class MoviewTBVViewModel {
             completio()
         }
     }
-
+    // MARK: - Layout
+    var sectionDataForPosterPhoto: PosterPhotoData?
+    var sectionDataForMoreInfo: MoreTextInfo?
+    var sectionDataForSimilarMovies: SimilarMovies?
+    
+    func getDataLayout(completion: @escaping() -> Void) {
+        
+        self.networkManager.getDataTrending(page: self.page, week: self.week) { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.sectionDataForPosterPhoto = PosterPhotoData(currentMoview: data)
+                self?.sectionDataForMoreInfo = MoreTextInfo(currentMoview: data)
+                self?.onDataUpdated()
+                print(self?.sectionDataForPosterPhoto?.id)
+                print(self?.sectionDataForMoreInfo?.id)
+                
+            case .failure(let error):
+                break
+            }
+            
+        }
+        
+        self.networkManager.getDataSimilar(page: self.page, query: "1726") { [weak self] result in
+            switch result {
+            case .success(let data):
+                self?.sectionDataForSimilarMovies = SimilarMovies(similarData: data)
+                print(self?.sectionDataForSimilarMovies?.moviewSimilar[0].title)
+            case .failure(let error):
+                break
+            }
+        }
+        completion()
+        
+    }
+    
+    
     func getDataSimilar(completion: @escaping() -> Void ) {
         self.networkManager.getDataSimilar(page: page, query: "1726") { [weak self] result in
             switch result {
@@ -78,23 +113,23 @@ class MoviewTBVViewModel {
     func pagePlus() {
         page += 1
     }
-
+    
     func titleForRow(at indexPath: IndexPath) -> String {
         data[indexPath.row].title
     }
-
+    
     func titleForRowSimilar(at indexPath: IndexPath) -> String {
         dataSimilar[indexPath.row].title
     }
-
+    
     func dataResult(at indexPath: IndexPath) -> DataResult {
         data[indexPath.row]
     }
-
+    
     func titleForRowSearch(at indexPath: IndexPath) -> String {
         filterArraySearch[indexPath.row].title
     }
-
+    
     func dataResultSearch(at indexPath: IndexPath) -> DataResult {
         filterArraySearch[indexPath.row]
     }
@@ -105,7 +140,7 @@ class MoviewTBVViewModel {
             return titleSearch.title.lowercased().contains(searchText.lowercased())
         })
     }
-
+    
     func partTwoImageUrl(at indexPath: IndexPath) -> String {
         data[indexPath.row].posterPath
     }
@@ -114,7 +149,7 @@ class MoviewTBVViewModel {
         guard let text = seachController.searchBar.text else {return false }
         return text.isEmpty
     }
-
+    
     func isFiltering (at seachController: UISearchController) -> Bool {
         return seachController.isActive && !searchBarIsEmpty(at: seachController)
     }

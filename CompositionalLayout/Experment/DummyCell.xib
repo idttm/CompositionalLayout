@@ -35,7 +35,7 @@
             <connections>
                 <outlet property="textLabel" destination="CY9-tU-pnR" id="TkB-qJ-Sgr"/>
             </connections>
-            <point key="canvasLocation" x="154" y="155"/>
+            <point key="canvasLocation" x="152.89855072463769" y="154.35267857142856"/>
         </collectionViewCell>
     </objects>
     <resources>

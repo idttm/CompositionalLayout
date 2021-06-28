@@ -65,7 +65,6 @@ class NetworkMoviesManager {
             case .success(let model):
                 if model.page <= model.totalPages {
                     completion(.success(model.results))
-                    print(model.totalPages)
                 }
             case .failure(let error):
                 completion(.failure(error))
