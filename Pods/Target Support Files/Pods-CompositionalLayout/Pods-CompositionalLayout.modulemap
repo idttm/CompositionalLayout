@@ -1,0 +1,6 @@
+framework module Pods_CompositionalLayout {
+  umbrella header "Pods-CompositionalLayout-umbrella.h"
+
+  export *
+  module * { export * }
+}
