@@ -30,6 +30,7 @@ class PosterPhoto: UICollectionViewCell, SelfconfiguringCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupConstrains() {
         contentContainer.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(contentContainer)
@@ -41,9 +42,7 @@ class PosterPhoto: UICollectionViewCell, SelfconfiguringCell {
         contentContainer.layer.cornerRadius = 10
         contentContainer.clipsToBounds = true
         
-        
         NSLayoutConstraint.activate([
-            
             contentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -54,7 +53,5 @@ class PosterPhoto: UICollectionViewCell, SelfconfiguringCell {
             posterPhoto.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor),
             posterPhoto.topAnchor.constraint(equalTo: contentContainer.topAnchor)
         ])
-        
     }
-    
 }

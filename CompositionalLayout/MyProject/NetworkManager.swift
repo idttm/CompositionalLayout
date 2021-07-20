@@ -73,20 +73,6 @@ class NetworkMoviesManager {
         }
     }
     
-//    func getDataSearch(page: Int, query: String, completion: @escaping (Result<[DataSearch],Error>) -> Void) {
-//        let urlString =  self.makeURL(page: String(page), apiKey: apiKey, requestOption: .search, query: query)
-//        print(urlString)
-//        self.fetchData(model: SearchData.self, urlString: urlString!) { [weak self] result in
-//            switch result {
-//            case .success(let model):
-//                completion(.success(model.results))
-//            case .failure(let error):
-//                completion(.failure(error))
-//                return
-//            }
-//        }
-//    }
-
     func getDataSimilar(page: Int, query: String, completion: @escaping (Result<[ResultSimilar],Error>) -> Void) {
         let urlString = "https://api.themoviedb.org/3/movie/\(query)/similar?api_key=357c897a0e2f1679cd227af63c654745&language=en-US&page=\(page)"
         self.fetchData(model: DataSimilar.self, urlString: urlString) { [weak self] result in

@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		34F2FEAAF60AE0BF89EB9B50 /* Pods_CompositionalLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7974D60425616EA2FE1AB5B2 /* Pods_CompositionalLayout.framework */; };
-		3E4BB05B2684F3310011E522 /* DummyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E4BB0592684F3310011E522 /* DummyCell.xib */; };
-		3E4BB05C2684F3310011E522 /* DummyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BB05A2684F3310011E522 /* DummyCell.swift */; };
 		3E4BB05E2685CA450011E522 /* PosterPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BB05D2685CA450011E522 /* PosterPhoto.swift */; };
 		3E4BB0602685D0550011E522 /* MoreInfoMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BB05F2685D0550011E522 /* MoreInfoMovie.swift */; };
 		3E6C11AF26835AAD009AD7B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C11AE26835AAD009AD7B9 /* AppDelegate.swift */; };
@@ -31,8 +29,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3E4BB0592684F3310011E522 /* DummyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DummyCell.xib; sourceTree = "<group>"; };
-		3E4BB05A2684F3310011E522 /* DummyCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DummyCell.swift; sourceTree = "<group>"; };
 		3E4BB05D2685CA450011E522 /* PosterPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterPhoto.swift; sourceTree = "<group>"; };
 		3E4BB05F2685D0550011E522 /* MoreInfoMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreInfoMovie.swift; sourceTree = "<group>"; };
 		3E6C11AB26835AAC009AD7B9 /* CompositionalLayout.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CompositionalLayout.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,8 +69,6 @@
 		3E4BB0582684F30B0011E522 /* Experment */ = {
 			isa = PBXGroup;
 			children = (
-				3E4BB05A2684F3310011E522 /* DummyCell.swift */,
-				3E4BB0592684F3310011E522 /* DummyCell.xib */,
 				3E6C11DC268364FE009AD7B9 /* ExpermentViewController.swift */,
 				3E4BB05D2685CA450011E522 /* PosterPhoto.swift */,
 				3E4BB05F2685D0550011E522 /* MoreInfoMovie.swift */,
@@ -218,7 +212,6 @@
 			files = (
 				3E6C11BB26835AB4009AD7B9 /* LaunchScreen.storyboard in Resources */,
 				3E6C11B826835AB4009AD7B9 /* Assets.xcassets in Resources */,
-				3E4BB05B2684F3310011E522 /* DummyCell.xib in Resources */,
 				3E6C11B626835AAD009AD7B9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -277,7 +270,6 @@
 				3E6C11CD26835B13009AD7B9 /* MoviewTBVViewModel.swift in Sources */,
 				3E9498712685E867005A0D92 /* Similar.swift in Sources */,
 				3E4BB0602685D0550011E522 /* MoreInfoMovie.swift in Sources */,
-				3E4BB05C2684F3310011E522 /* DummyCell.swift in Sources */,
 				3E6C11C926835AEE009AD7B9 /* Emoji.swift in Sources */,
 				3E6C11C826835AEE009AD7B9 /* EmojiExplorerViewController.swift in Sources */,
 				3E6C11DD268364FE009AD7B9 /* ExpermentViewController.swift in Sources */,

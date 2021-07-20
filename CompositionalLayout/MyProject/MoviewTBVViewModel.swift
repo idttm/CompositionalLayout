@@ -8,150 +8,39 @@
 import UIKit
 
 class MoviewTBVViewModel {
-    
     private let networkManager = NetworkMoviesManager()
-    private var data: [DataResult] = []
-    private var dataSimilar: [ResultSimilar] = []
-    private var filterArraySearch = [DataResult]()
-    var numberOfRows: Int { data.count }
-    var numberOfRowsSimilar: Int { dataSimilar.count }
-    var numberOfRowsSearch: Int { filterArraySearch.count }
-    private var page = 1
-    private var week: Bool = true
-    
-    var onDataUpdated: () -> Void = {}
-    
-    var title: String {
-        week ? "Day tranding" : "Week tranding"
-    }
-    
-    var buttonTitle: String {
-        week ? "Week tranding" : "Day tranding"
-    }
-    
-    func toggleTrandingMode() {
-        week.toggle()
-        refresh()
-    }
-    
-    func refresh() {
-        page = 1
-        getNextPage()
-    }
-    
-    func getNextPage() {
-        getData(week: week) { [weak self] in
-            self?.onDataUpdated()
-        }
-    }
-    
-    private func getData(week: Bool, completio: @escaping() -> Void) {
-        if page == 1 {
-            data.removeAll()
-        }
-        self.networkManager.getDataTrending(page: page, week: week) { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.data.append(contentsOf: data)
-                self?.onDataUpdated()
-            case .failure(let error):
-                break
-            }
-            self?.pagePlus()
-            completio()
-        }
-    }
-    // MARK: - Layout
-    var sectionDataForPosterPhoto: PosterPhotoData?
+    var posterURLString: String = ""
+    var similarMovies: [ResultSimilar] = []
     var sectionDataForMoreInfo: MoreTextInfo?
-    var sectionDataForSimilarMovies: SimilarMovies?
-    
+
     func getDataLayout(completion: @escaping() -> Void) {
-        
-        self.networkManager.getDataTrending(page: self.page, week: self.week) { [weak self] result in
+        let dg = DispatchGroup()
+        dg.enter()
+        networkManager.getDataTrending(page: 1, week: false) { [weak self] result in
             switch result {
             case .success(let data):
-                self?.sectionDataForPosterPhoto = PosterPhotoData(currentMoview: data)
+                self?.posterURLString = data.first?.posterPath  ?? ""
                 self?.sectionDataForMoreInfo = MoreTextInfo(currentMoview: data)
-                self?.onDataUpdated()
-                print(self?.sectionDataForPosterPhoto?.id)
-                print(self?.sectionDataForMoreInfo?.id)
-                
             case .failure(let error):
                 break
             }
-            
+            dg.leave()
         }
-        
-        self.networkManager.getDataSimilar(page: self.page, query: "1726") { [weak self] result in
+
+        dg.enter()
+        networkManager.getDataSimilar(page: 1, query: "1726") { [weak self] result in
             switch result {
             case .success(let data):
-                self?.sectionDataForSimilarMovies = SimilarMovies(similarData: data)
-                print(self?.sectionDataForSimilarMovies?.moviewSimilar[0].title)
+                self?.similarMovies = data
             case .failure(let error):
+                print("ERROR \(error.localizedDescription)")
                 break
             }
+            dg.leave()
         }
-        completion()
-        
-    }
-    
-    
-    func getDataSimilar(completion: @escaping() -> Void ) {
-        self.networkManager.getDataSimilar(page: page, query: "1726") { [weak self] result in
-            switch result {
-            case .success(let data):
-                self?.dataSimilar.append(contentsOf: data)
-            case .failure(let error):
-                break
-            }
+
+        dg.notify(queue: DispatchQueue.main) {
             completion()
         }
-        pagePlus()
     }
-    
-    func pagePlus() {
-        page += 1
-    }
-    
-    func titleForRow(at indexPath: IndexPath) -> String {
-        data[indexPath.row].title
-    }
-    
-    func titleForRowSimilar(at indexPath: IndexPath) -> String {
-        dataSimilar[indexPath.row].title
-    }
-    
-    func dataResult(at indexPath: IndexPath) -> DataResult {
-        data[indexPath.row]
-    }
-    
-    func titleForRowSearch(at indexPath: IndexPath) -> String {
-        filterArraySearch[indexPath.row].title
-    }
-    
-    func dataResultSearch(at indexPath: IndexPath) -> DataResult {
-        filterArraySearch[indexPath.row]
-    }
-    
-    func filterContentForSearch(_ searchText: String) {
-        let  arrayDataTitle = data
-        filterArraySearch = arrayDataTitle.filter({ titleSearch in
-            return titleSearch.title.lowercased().contains(searchText.lowercased())
-        })
-    }
-    
-    func partTwoImageUrl(at indexPath: IndexPath) -> String {
-        data[indexPath.row].posterPath
-    }
-    
-    private func searchBarIsEmpty(at seachController: UISearchController) -> Bool {
-        guard let text = seachController.searchBar.text else {return false }
-        return text.isEmpty
-    }
-    
-    func isFiltering (at seachController: UISearchController) -> Bool {
-        return seachController.isActive && !searchBarIsEmpty(at: seachController)
-    }
-    
 }

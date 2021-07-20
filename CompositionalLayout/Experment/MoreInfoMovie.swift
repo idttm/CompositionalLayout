@@ -26,6 +26,7 @@ class MoreInfoMovie: UICollectionViewCell, SelfconfiguringCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setupConstrains() {
         contentContainer.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(contentContainer)
@@ -39,7 +40,6 @@ class MoreInfoMovie: UICollectionViewCell, SelfconfiguringCell {
         label.frame = self.bounds
         
         NSLayoutConstraint.activate([
-            
             contentContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             contentContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             contentContainer.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -50,10 +50,9 @@ class MoreInfoMovie: UICollectionViewCell, SelfconfiguringCell {
             label.bottomAnchor.constraint(equalTo: contentContainer.bottomAnchor, constant: -10),
             label.topAnchor.constraint(equalTo: contentContainer.topAnchor, constant: 10)
         ])
-        
     }
-    
 }
+
 extension UIColor {
     static func mainWhite() -> UIColor {
         return #colorLiteral(red: 0.968627451, green: 0.9725490196, blue: 0.9921568627, alpha: 1)

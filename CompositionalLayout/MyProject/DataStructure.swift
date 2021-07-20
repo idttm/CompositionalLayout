@@ -21,26 +21,15 @@ struct PosterPhotoData: Hashable {
     init?(currentMoview: [DataResult]) {
         self.posterPath = currentMoview[0].posterPath
         self.id = currentMoview[0].id
-        
     }
-
 }
 
 struct MoreTextInfo: Hashable {
-    
-    static func == (lhs: MoreTextInfo, rhs: MoreTextInfo) -> Bool {
-        lhs.id == rhs.id
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    var id: Int
     var title: String
     var rating: Double
     var overview: String
     
     init?(currentMoview: [DataResult]) {
-        self.id = currentMoview[0].id + 1
         self.title = currentMoview[0].title
         self.rating = currentMoview[0].voteAverage
         self.overview = currentMoview[0].overview
@@ -48,13 +37,7 @@ struct MoreTextInfo: Hashable {
 }
 
 struct SimilarMovies: Hashable {
-    static func == (lhs: SimilarMovies, rhs: SimilarMovies) -> Bool {
-        lhs.id == rhs.id
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    var id = UUID()
+   
     var moviewSimilar: [ResultSimilar]
     
     init?(similarData: [ResultSimilar]) {

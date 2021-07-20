@@ -15,12 +15,12 @@ struct DataSimilar: Codable {
 }
 
 // MARK: - Result
-struct ResultSimilar: Codable {
+struct ResultSimilar: Codable, Hashable {
     let adult: Bool
     let backdropPath: String
     let genreIDS: [Int]
     let id: Int
-    let originalLanguage: OriginalLanguage
+    let originalLanguage: String
     let originalTitle, overview, posterPath, releaseDate: String
     let title: String
     let video: Bool
@@ -43,9 +43,13 @@ struct ResultSimilar: Codable {
         case voteCount = "vote_count"
         case popularity
     }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: ResultSimilar, rhs: ResultSimilar) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
-enum OriginalLanguage: String, Codable {
-    case en = "en"
-}
 
